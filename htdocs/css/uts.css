@@ -1,0 +1,90 @@
+body {
+    /* Visuals */
+    overflow-y: scroll;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    /* Visuals */
+    background-color: #36b9cc !important;
+    border-color: #36b9cc !important;
+}
+
+.custom-control-input:focus ~ .custom-control-label::before {
+    /* Visuals */
+    box-shadow: 0 0 0 0.2rem rgba(54, 185, 204, 0.25) !important;
+}
+
+.sidebar-brand-text {
+    /* Typography */
+    font-size: 18px;
+    text-transform: capitalize;
+
+    /* Animation */
+    transition: transform 0.3s ease;
+}
+
+.sidebar-brand-text:hover {
+    /* Typography */
+    color: #ffc107 !important;
+}
+
+.perkuliahan {
+    /* Box Model */
+    margin-top: 27px;
+
+    /* Typography */
+    text-transform: capitalize;
+
+    /* Animation */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.perwalian,
+.penelitian,
+.pengabdian {
+    /* Box Model */
+    margin-top: 17px;
+
+    /* Typography */
+    text-transform: capitalize;
+
+    /* Animation */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.perkuliahan:hover,
+.perwalian:hover,
+.penelitian:hover,
+.pengabdian:hover {
+    /* Visuals */
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-menu {
+    /* Animation */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-menu:hover {
+    /* Visuals */
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.menu:hover {
+    /* Typography */
+    color: #0d6efd !important;
+}
+
+.bg-black {
+    /* Box Model */
+    padding: 20px;
+}
+
+.btn-info,
+.btn-warning,
+.btn-danger {
+    /* Box Model */
+    margin: 3px 0;
+}

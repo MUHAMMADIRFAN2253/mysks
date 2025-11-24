@@ -1,0 +1,12 @@
+php_value display_errors On
+php_value mbstring.http_input auto
+php_value date.timezone America/New_York
+<IfModule mod_rewrite.c>
+    Options -Multiviews
+    
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php?url=$1 [L]
+
+</IfModule>
