@@ -1,0 +1,37 @@
+name: Deploy to Profreehost via FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ftp-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Upload to FTP using lftp mirror
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_PATH: ${{ secrets.FTP_PATH }}
+
+        run: |
+          : ${FTP_PORT:=21}
+          : ${FTP_PATH:=/}
+
+          echo "Connecting to $FTP_HOST:$FTP_PORT..."
+          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" -p $FTP_PORT $FTP_HOST <<EOF
+            set ftp:passive-mode on
+            set ftp:ssl-allow no
+            mirror -R --delete --verbose --exclude-glob .git* ./ $FTP_PATH
+            quit
+EOF
