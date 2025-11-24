@@ -6,32 +6,18 @@ on:
       - main
 
 jobs:
-  ftp-deploy:
+  web-deploy:
+    name: Deploy
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - uses: actions/checkout@v3
 
-      - name: Install lftp
-        run: sudo apt-get update && sudo apt-get install -y lftp
-
-      - name: Upload to FTP using lftp mirror
-        env:
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_PORT: ${{ secrets.FTP_PORT }}
-          FTP_PATH: ${{ secrets.FTP_PATH }}
-
-        run: |
-          : ${FTP_PORT:=21}
-          : ${FTP_PATH:=/}
-
-          echo "Connecting to $FTP_HOST:$FTP_PORT..."
-          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" -p $FTP_PORT $FTP_HOST <<EOF
-            set ftp:passive-mode on
-            set ftp:ssl-allow no
-            mirror -R --delete --verbose --exclude-glob .git* ./ $FTP_PATH
-            quit
-EOF
+    - name: FTP Deploy
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.0
+      with:
+        server: ${{ secrets.FTP_HOST }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-directory: /htdocs/
+        local-dir: ./
+        log-level: verbose
